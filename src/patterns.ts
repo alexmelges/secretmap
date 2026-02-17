@@ -48,6 +48,40 @@ export const KEY_PATTERNS: CredentialPattern[] = [
   { keyPattern: /RAILWAY[_-]?TOKEN/i, type: 'token', baseRisk: 7 },
   { keyPattern: /SUPABASE[_-]?(?:KEY|SECRET|URL)/i, type: 'api-key', baseRisk: 7 },
   { keyPattern: /FIREBASE[_-]?(?:KEY|TOKEN|SECRET)/i, type: 'api-key', baseRisk: 7 },
+
+  // Railway
+  { keyPattern: /RAILWAY[_-]?(?:API[_-]?)?TOKEN/i, type: 'token', baseRisk: 7 },
+  { keyPattern: /RAILWAY[_-]?(?:STATIC[_-]?)?URL/i, type: 'connection-string', baseRisk: 5 },
+  { keyPattern: /RAILWAY[_-]?ENVIRONMENT/i, type: 'env-var', baseRisk: 3 },
+
+  // Vercel
+  { keyPattern: /VERCEL[_-]?(?:API[_-]?)?TOKEN/i, type: 'token', baseRisk: 7 },
+  { keyPattern: /VERCEL[_-]?(?:ORG|TEAM)[_-]?ID/i, type: 'api-key', baseRisk: 4 },
+  { keyPattern: /VERCEL[_-]?PROJECT[_-]?ID/i, type: 'api-key', baseRisk: 4 },
+
+  // Supabase
+  { keyPattern: /SUPABASE[_-]?(?:ANON[_-]?)?KEY/i, type: 'api-key', baseRisk: 6 },
+  { keyPattern: /SUPABASE[_-]?SERVICE[_-]?(?:ROLE[_-]?)?KEY/i, type: 'secret', baseRisk: 9 },
+  { keyPattern: /SUPABASE[_-]?JWT[_-]?SECRET/i, type: 'secret', baseRisk: 9 },
+  { keyPattern: /SUPABASE[_-]?(?:DB[_-]?)?PASSWORD/i, type: 'password', baseRisk: 9 },
+  { keyPattern: /NEXT[_-]?PUBLIC[_-]?SUPABASE[_-]?URL/i, type: 'connection-string', baseRisk: 3 },
+  { keyPattern: /NEXT[_-]?PUBLIC[_-]?SUPABASE[_-]?ANON[_-]?KEY/i, type: 'api-key', baseRisk: 5 },
+
+  // Resend
+  { keyPattern: /RESEND[_-]?(?:API[_-]?)?KEY/i, type: 'api-key', baseRisk: 7 },
+
+  // Additional cloud services
+  { keyPattern: /PLANETSCALE[_-]?(?:TOKEN|PASSWORD)/i, type: 'secret', baseRisk: 8 },
+  { keyPattern: /TURSO[_-]?(?:AUTH[_-]?)?TOKEN/i, type: 'token', baseRisk: 7 },
+  { keyPattern: /TURSO[_-]?(?:DATABASE[_-]?)?URL/i, type: 'connection-string', baseRisk: 6 },
+  { keyPattern: /NEON[_-]?(?:DATABASE[_-]?)?URL/i, type: 'connection-string', baseRisk: 8 },
+  { keyPattern: /UPSTASH[_-]?(?:REDIS[_-]?)?(?:TOKEN|URL)/i, type: 'secret', baseRisk: 7 },
+  { keyPattern: /CLERK[_-]?SECRET[_-]?KEY/i, type: 'secret', baseRisk: 8 },
+  { keyPattern: /SENTRY[_-]?(?:DSN|AUTH[_-]?TOKEN)/i, type: 'token', baseRisk: 6 },
+  { keyPattern: /POSTMARK[_-]?(?:API[_-]?)?(?:TOKEN|KEY)/i, type: 'api-key', baseRisk: 7 },
+  { keyPattern: /SENDGRID[_-]?(?:API[_-]?)?KEY/i, type: 'api-key', baseRisk: 7 },
+  { keyPattern: /TWILIO[_-]?(?:AUTH[_-]?TOKEN|ACCOUNT[_-]?SID)/i, type: 'secret', baseRisk: 8 },
+  { keyPattern: /CLOUDFLARE[_-]?(?:API[_-]?)?(?:TOKEN|KEY)/i, type: 'api-key', baseRisk: 7 },
 ];
 
 /** Value patterns that look like real secrets (not placeholders) */
@@ -61,6 +95,9 @@ export const VALUE_PATTERNS = {
   uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
   hexKey: /^[0-9a-f]{32,}$/i,
   privateKeyBlock: /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
+  resendKey: /^re_[A-Za-z0-9_]{20,}$/,
+  supabaseKey: /^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\./,
+  vercelToken: /^[A-Za-z0-9]{24,}$/,
 };
 
 /** Files/dirs to always skip */

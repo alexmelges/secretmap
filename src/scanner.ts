@@ -282,7 +282,8 @@ function extractKeysFromObj(
     if (!pattern) {
       // Also check if the value looks like a secret
       if (VALUE_PATTERNS.awsKey.test(val) || VALUE_PATTERNS.githubToken.test(val) ||
-          VALUE_PATTERNS.privateKeyBlock.test(val) || VALUE_PATTERNS.jwt.test(val)) {
+          VALUE_PATTERNS.privateKeyBlock.test(val) || VALUE_PATTERNS.jwt.test(val) ||
+          VALUE_PATTERNS.resendKey.test(val)) {
         results.push({
           name: fullKey,
           location: filePath,

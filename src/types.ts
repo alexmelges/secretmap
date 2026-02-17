@@ -70,3 +70,10 @@ export interface ScanOptions {
   includeHome: boolean;
   verbose: boolean;
 }
+
+export interface FixSuggestion {
+  type: 'gitignore' | 'permission' | 'env-example' | 'rotation';
+  location: string;
+  description: string;
+  command?: string;
+}

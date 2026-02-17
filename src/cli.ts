@@ -2,6 +2,7 @@
 import { resolve } from 'node:path';
 import { scan } from './scanner.js';
 import { formatHuman, formatJSON } from './formatter.js';
+import { generateFixSuggestions, formatFixSuggestions } from './fixer.js';
 import type { ScanOptions } from './types.js';
 
 function usage(): void {
@@ -12,6 +13,7 @@ Usage: secretmap [options] [directory]
 
 Options:
   --json          Output as JSON
+  --fix           Show fix suggestions (.gitignore entries, permission fixes)
   --no-home       Skip scanning home directory known locations
   --depth <n>     Max directory depth (default: 8)
   --verbose       Show all findings including low-risk
@@ -19,8 +21,9 @@ Options:
 
 Examples:
   secretmap                  # Scan current dir + home
-  secretmap ~/projects       # Scan specific directory + home
+  secretmap ~/projects       # Scan specific directory
   secretmap --json .         # JSON output for piping
+  secretmap --fix .          # Scan + show fix suggestions
   secretmap --no-home .      # Only scan project directory
 `);
 }
@@ -36,6 +39,7 @@ async function main(): Promise<void> {
   const json = args.includes('--json');
   const noHome = args.includes('--no-home');
   const verbose = args.includes('--verbose');
+  const fix = args.includes('--fix');
 
   let maxDepth = 8;
   const depthIdx = args.indexOf('--depth');
@@ -56,9 +60,17 @@ async function main(): Promise<void> {
   const result = await scan(opts);
 
   if (json) {
-    console.log(formatJSON(result));
+    const output: Record<string, unknown> = { ...result };
+    if (fix) {
+      output.suggestions = generateFixSuggestions(result);
+    }
+    console.log(JSON.stringify(output, null, 2));
   } else {
     console.log(formatHuman(result));
+    if (fix) {
+      const suggestions = generateFixSuggestions(result);
+      console.log(formatFixSuggestions(suggestions));
+    }
   }
 
   // Exit with error code if critical exposures found

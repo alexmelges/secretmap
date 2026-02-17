@@ -1,10 +1,10 @@
 {
   "name": "secretmap",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Find and inventory all credentials scattered across your dev environment. AI agent config aware.",
   "type": "module",
   "bin": {
-    "secretmap": "./dist/cli.js"
+    "secretmap": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
@@ -12,12 +12,19 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "keywords": ["secrets", "credentials", "security", "audit", "inventory", "ai-agent"],
+  "keywords": [
+    "secrets",
+    "credentials",
+    "security",
+    "audit",
+    "inventory",
+    "ai-agent"
+  ],
   "author": "Alex Melges <alexmelges@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexmelges/secretmap.git"
+    "url": "git+https://github.com/alexmelges/secretmap.git"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
@@ -25,5 +32,9 @@
     "tsx": "^4.19.0",
     "@types/node": "^22.0.0"
   },
-  "files": ["dist", "README.md", "LICENSE"]
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
 }
